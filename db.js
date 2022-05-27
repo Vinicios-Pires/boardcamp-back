@@ -5,9 +5,7 @@ dotenv.config();
 
 const { Pool } = pg;
 const db = new Pool({
-	host: "localhost",
-	port: 5432,
-	user: "postgres",
-	password: process.env.SENHA,
-	database: "boardcamp",
+	connectionString: process.env.DATABASE_URI,
 });
+
+export default db;
