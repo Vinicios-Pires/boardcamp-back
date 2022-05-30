@@ -15,11 +15,11 @@ export async function getCategories(req, res) {
 export async function addCategories(req, res) {
 	try {
 		const nameExists = await db.query(
-			`SELECT categories.name FROM categories
-			 WHERE categories.name = $1`,
+			`SELECT * FROM categories
+			 WHERE name = $1`,
 			[req.body.name]
 		);
-		if (nameExists) {
+		if (nameExists.rows.length > 0) {
 			return res.sendStatus(409);
 		}
 

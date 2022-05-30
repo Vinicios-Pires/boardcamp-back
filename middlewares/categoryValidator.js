@@ -5,7 +5,7 @@ export function validateCategory(req, res, next) {
 		name: joi.string().required(),
 	});
 
-	const validation = categorySchema.validate(req.body.name);
+	const validation = categorySchema.validate(req.body);
 	if (validation.error) {
 		return res.sendStatus(400);
 	}
