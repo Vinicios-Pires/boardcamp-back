@@ -1,3 +1,5 @@
+import joi from "joi";
+
 import db from "../db.js";
 
 export async function getCategories(req, res) {
@@ -11,9 +13,17 @@ export async function getCategories(req, res) {
 }
 
 export async function addCategories(req, res) {
-	const newCategorie = req.body;
 	try {
-		const result = await db.query(
+		const nameExists = await db.query(
+			`SELECT categories.name FROM categories
+			 WHERE categories.name = $1`,
+			[req.body.name]
+		);
+		if (nameExists) {
+			return res.sendStatus(409);
+		}
+
+		await db.query(
 			`
          INSERT INTO categories (name) 
          VALUES ($1);

@@ -19,7 +19,7 @@ app.use(gamesRouter);
 app.use(costumerRouter);
 app.use(rentalRouter);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 app.listen(port, () =>
-	console.log(`Servidor aberto em: "http://localhost:5000/"`)
+	console.log(`Servidor aberto em: "http://localhost:${port}/"`)
 );
