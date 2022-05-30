@@ -17,6 +17,14 @@ export async function getAllCustomers(req, res) {
 export async function getCustomer(req, res) {
 	const { id } = req.params;
 	try {
+		const customerExists = await db.query(
+			`SELECT * FROM customers WHERE id = $1;`,
+			[id]
+		);
+		if (customerExists.rows.length === 0) {
+			return res.sendStatus(404);
+		}
+
 		const result = await db.query(
 			`
          SELECT customers.* 
@@ -37,7 +45,15 @@ export async function getCustomer(req, res) {
 
 export async function addNewCustomer(req, res) {
 	const { name, phone, cpf, birthday } = req.body;
+
 	try {
+		const cpfExists = await db.query(`SELECT * FROM customers WHERE cpf = $1`, [
+			cpf,
+		]);
+		if (cpfExists.rows.length > 0) {
+			return res.sendStatus(409);
+		}
+
 		await db.query(
 			`
          INSERT INTO customers (name, phone, cpf, birthday)
