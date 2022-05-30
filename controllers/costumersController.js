@@ -40,9 +40,9 @@ export async function addNewCustomer(req, res) {
 	try {
 		await db.query(
 			`
-      INSERT INTO customers (name, phone, cpf, birthday)
-      VALUES ($1, $2, $3, $4);
-      `,
+         INSERT INTO customers (name, phone, cpf, birthday)
+         VALUES ($1, $2, $3, $4);
+         `,
 			[name, phone, cpf, birthday]
 		);
 
